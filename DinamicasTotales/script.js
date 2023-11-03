@@ -204,7 +204,7 @@ function eliminarDatos() {
         alert("La clave " + eliminar + " no se encuentra en la estructura")
     }
 
-    if ((arreglo.length - 1) < (((tamañoMatriz / 2) * (densidad))*0.85)) {
+    if ((arreglo.length - 1) < (((tamañoMatriz / 2) * (densidad))*0.8)) {
         n = n / 2;
     }
 
