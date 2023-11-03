@@ -1,21 +1,26 @@
 let n = 2;
+let n2 = n;
+let n3 = 2;
 let densidad = 0.75;
+let densidad2 = 1.05;
 let tamañoMatriz = n;
 let aux = 0;
 let contador = 0
+let contador2 = 0
 let otrocontador = 0;
 let residuo = 0;
-let n1 = 2;
+
+const $panelEstructura = document.querySelector(".panel-estructura")
 
 //eso son las variables que usé
 
 let arreglo = [];//arreglo al que el usuario le inserta datos
-let arreglo2 = ["35", "4", "5", "2", '12', '27'];//una matriz predefinida para hacer pruebas o para una demostracion si ahce falta
+let arreglo2 = ["1", "2", "3", "4", '5', '6', '7', '8'];//una matriz predefinida para hacer pruebas o para una demostracion si ahce falta
 
-var matriz = new Array();   //me crea una matriz de tamaño variable
-for (i = 0; i < n1; i++) {  //a cada espacio de la matriz segun n se le inserta un vector de 2 posiciones
+var matriz = new Array(2);   //me crea una matriz de tamaño variable
+for (i = 0; i < 2; i++) {  //a cada espacio de la matriz segun n se le inserta un vector de 2 posiciones
     // resultando n amatriz de n*2
-    matriz[i] = new Array(2);
+    matriz[i] = new Array(n);
 }
 
 function registroAutomatico() {//lo mimso que la otra pero con el arreglo predefinido
@@ -25,12 +30,11 @@ function registroAutomatico() {//lo mimso que la otra pero con el arreglo predef
         } else {
             arreglo.push(item);//inserta el contenido del placeholder en el arreglo vacio inicial
         }
-        dinamicaParcial();
+        dinamicaParcial()
     }
 }
-console.log("n es: " + n)
-console.log("n1 es: " + n1)
-dinamicaParcial();
+
+dinamicaParcial()
 
 function registrarDatos() {//leen contenido del placeholder del html cuando se presiona el voton
 
@@ -38,7 +42,6 @@ function registrarDatos() {//leen contenido del placeholder del html cuando se p
 
     if (arreglo.length == 0) {
         arreglo.push(dato);//inserta el contenido del placeholder en el arreglo vacio inicial
-        console.log("se insertó el dato en la posicion 0")
     }
 
     if (arreglo.includes(dato)) {
@@ -48,98 +51,130 @@ function registrarDatos() {//leen contenido del placeholder del html cuando se p
     }
     document.getElementById("Clave").value = "";
 
-    dinamicaParcial();//ejecuta la funcion dinamica total, la logica
+    dinamicaParcial() //ejecuta la funcion dinamica total, la logica
 }
 
 
 function limpiarmatriz() {
-    for (var i = 0; i < n1; i++) {
-        matriz[i] = new Array(2);
+    for (var i = 0; i < 2; i++) {
+        matriz[i] = new Array(n);
     }
 
-    for (i = 0; i < n1; i++) {
-        for (j = 0; j < 2; j++) {
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < n; j++) {
             matriz[i][j] == null;
         }
     }
 }
 
-console.log("n es: " + n)
-console.log("n1 es: " + n1)
+
 
 function actualizarMatriz() {//reescribe la matriz definida arriba
- if (n%2 == 0) {
-        n1 = n * 1.5;
-        tamañoMatriz = n1 * 2;
-    } else if (n1%2 == 1) {
-        n *= 2;
-        n1 = n;
-        tamañoMatriz = n * 2;
-    }
-
-
-    console.log("el tamaño es ### " + tamañoMatriz)
+if(contador2 % 2==1){
+    n3=n
+    n = n2*1.5;
+    n2=n3*2;
+    tamañoMatriz = n * 2;
+    limpiarmatriz();
+    
+}
+if(contador2 % 2==0){
+    n = n2;
+    n3=n3*2;
+    tamañoMatriz = n * 2;
     limpiarmatriz();
 }
+console.log(n)
+console.log(n2)
+console.log(n3)
+console.log(contador2)
+}
+
+function imprimirMatrizEnPanel(matriz, panel) {
+    if (!panel) {
+        console.error("El panel especificado no se encontró en el documento.");
+        return;
+    }
+
+    const table = document.createElement("table");
+    const tbody = document.createElement("tbody");
+
+    // Agrega estilos CSS para los bordes de la tabla
+    table.style.borderCollapse = "collapse";
+    table.style.border = "1px solid black";
 
 
+    for (let i = 0; i < matriz.length; i++) {
+        const row = document.createElement("tr");
+        for (let j = 0; j < matriz[i].length; j++) {
+            const cell = document.createElement("td");
+            cell.textContent = matriz[i][j];
+            cell.style.border = "1px solid black";
+            cell.style.width = "50px"; // Estilo de borde para cada celda
+            cell.style.height = "50px"; // Estilo de borde para cada celda
+            cell.style.textAlign = "center";
+            row.appendChild(cell);
+        }
+
+        tbody.appendChild(row);
+    }
+
+    table.appendChild(tbody);
+    panel.innerHTML = ""; // Limpia el contenido anterior del panel
+    panel.appendChild(table);
+}
 
 // creo que hay problemas con esto y por eso tal vez se duplican los datos
 function dinamicaParcial() {
+
     contador = 0
-    tamañoMatriz = n1 * 2;
-    for (i = 0; i < n1; i++) {
-        for (j = 0; j < 2; j++) {
+    tamañoMatriz = n * 2;
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < n; j++) {
             if (matriz[i][j] == null) {
                 contador++//aumenta con cada espacio nulo de la matriz, deberia ser de n*2 al inicio siempre
-                console.log("el contador es de#### " + contador)
-              
-                aux = (tamañoMatriz - contador);    //inicia en cero y va creciendo con cada dato que se ingresa
-                console.log("el aux es de$$$ " + aux)
+                aux = (tamañoMatriz - contador) + 1;    //inicia en cero y va creciendo con cada dato que se ingresa
             }
         }
     }
 
 
-
-
-    if (aux < (tamañoMatriz * densidad)) {//condicion de que la densidad ocupacional sea menor al limite establecido
+    if ((aux) < (tamañoMatriz * densidad)) {//condicion de que la densidad ocupacional sea menor al limite establecido
 
         densidad_aceptada();
-        
+
     }
-    else if (aux >= (tamañoMatriz * densidad)) {//si la densidad ocupacional es mayor o igual al limite establecido
+    else if ((aux) >= (tamañoMatriz * densidad)) {//si la densidad ocupacional es mayor o igual al limite establecido
+        contador2+=1;
         densidad_rechazada();
     }
 
-    console.log("el contador es de " + contador)
-    console.log("el aux es de " + aux)
 
-    console.log(matriz)
+    imprimirMatrizEnPanel(matriz, $panelEstructura);
+    $panelEstructura
+    console.log("el tamaño es " + tamañoMatriz)
 }
+
+function hash(valor) {  //la funcion modulo hash
+    residuo = valor % n;
+}
+
 
 
 function densidad_aceptada() {
     limpiarmatriz()
-    
     for (i = 0; i < arreglo.length; i++) {
         clave = arreglo[i];//lee el arreglo que ingresa el usuario 
-        console.log("la clave es " + clave) // esto solo era para ver que clave es
         hash(clave)//funcion hash a la que se le pasa la posision i del arreglo
 
-        if (matriz[residuo][0] == null) {
-            matriz[residuo][0] = clave;//ingresa indice
-            console.log("se colocó en " + residuo + ",0")
-        } else if (matriz[residuo][1] == null) {
-            matriz[residuo][1] = clave;//ingresa indice
-            console.log("se colocó en " + residuo + ",1")
-        } else if (matriz[residuo][0] !== null & matriz[residuo][1] !== null) {
+        if (matriz[0][residuo] == null) {
+            matriz[0][residuo] = clave;//ingresa indice
+        } else if (matriz[1][residuo] == null) {
+            matriz[1][residuo] = clave;//ingresa indice
+        } else if (matriz[0][residuo] !== null & matriz[1][residuo] !== null) {
             otrocontador++//"espacio de memoria reservado cuando no entra el indice"
-            console.log("se colocó eel auxiliar")
-            aux += otrocontador;
+            aux += 1;
         }
-    
-    
     }
 }
 
@@ -150,13 +185,12 @@ function densidad_rechazada() {
     //s actualiza el tamaño n de la matriz 
     for (i = 0; i < arreglo.length; i++) {
         clave = arreglo[i];//lee el arreglo que ingresa el usuario 
-        console.log("la clave es " + clave) // esto solo era para ver que clave es
         hash(clave)//funcion hash a la que se le pasa la posision i del arreglo
 
-        if (matriz[residuo][0] == null) {
-            matriz[residuo][0] = clave;//ingresa indice
-        } else if (matriz[residuo][1] == null) {
-            matriz[residuo][1] = clave;//ingresa indice
+        if (matriz[0][residuo] == null) {
+            matriz[0][residuo] = clave;//ingresa indice
+        } else if (matriz[1][residuo] == null) {
+            matriz[1][residuo] = clave;//ingresa indice
         } else {
             otrocontador++//"espacio de memoria reservado cuando no entra el indice"
             aux += otrocontador;
@@ -164,10 +198,42 @@ function densidad_rechazada() {
     }
 }
 
-function hash(valor) {  //la funcion modulo hash
-    residuo = valor % n1;
-    console.log("el residuo es de " + residuo + " y el n es de " + n1)
+function buscarDatos() {
+    var busqueda = document.getElementById("Buqueda").value;
+
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < n; j++) {
+            if (matriz[i][j] == busqueda) {
+                alert("El clave " + busqueda + " se encuentra en la posición [" + (i + 1) + "," + j + "]")
+                if (!arreglo.includes(busqueda)) {
+                    alert("La clave " + busqueda + " no se encuentra en la estructura")
+                }
+            }
+        }
+    }
+
+    //ejecuta la funcion dinamica total, la logica
 }
 
-// console.log("arreglo 1 despues " + arreglo)
-// console.log("arrelgo 2 " + arreglo2)
+function eliminarDatos() {
+    var eliminar = document.getElementById("Eliminar").value;
+    aux = 0;
+    if (!arreglo.includes(eliminar)) {
+        alert("La clave " + eliminar + " no se encuentra en la estructura")
+    }
+
+    if ((arreglo.length - 1) < (((tamañoMatriz / 2) * (densidad)) * 0.8)) {
+        n = n*0.75;
+
+    }
+
+    for (i = 0; i < arreglo.length; i++) {
+
+        if (arreglo[i] == eliminar) {
+            arreglo.splice(i, 1);
+
+        }
+    }
+
+    dinamicaParcial()
+}
