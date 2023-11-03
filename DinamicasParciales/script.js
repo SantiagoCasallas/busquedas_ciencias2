@@ -235,5 +235,5 @@ function eliminarDatos() {
         }
     }
 
-    dinamicaParcial()
+    dinamicaParcial()//prueba comit
 }
