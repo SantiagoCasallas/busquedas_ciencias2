@@ -235,5 +235,5 @@ function eliminarDatos() {
         }
     }
 
-    dinamicaParcial()//prueba comit
+    dinamicaParcial()//prueba commit
 }
